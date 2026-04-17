@@ -57,7 +57,6 @@ Item {
                     width: parent.width
                     height: 130
                     lineColor: increase > 0.0 ? "red" : "green"
-                    source: stockManager.getCurveEntity(code)
                     tablemodel: stockManager.getXYtableModel(code)
                     visible: stockManager.getCodeVisable(code)
                 }

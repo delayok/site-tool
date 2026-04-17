@@ -61,10 +61,6 @@ public:
     explicit CurveManger(QObject *parent = nullptr);
 
     Q_INVOKABLE void addCurve(QString code){
-        if (!m_mapCurve.contains(code))
-        {
-            m_mapCurve.insert(code, QSharedPointer<CurveEntity>(new CurveEntity(this)));
-        }
         if (!m_mapModel.contains(code))
         {
             m_mapModel.insert(code, QSharedPointer<MapTableModel>(new MapTableModel(this)));
@@ -73,10 +69,6 @@ public:
 
     Q_INVOKABLE void remove(QString code)
     {
-        if (m_mapCurve.contains(code))
-        {
-            m_mapCurve.remove(code);
-        }
         if (m_mapModel.contains(code))
         {
             m_mapModel.remove(code);
@@ -84,23 +76,12 @@ public:
     }
 
     Q_INVOKABLE void addData(QString code , float increase){
-        if (m_mapCurve.contains(code))
-        {
-            m_mapCurve.value(code).data()->addIncrese(increase);
-        }
         if (m_mapModel.contains(code))
         {
             m_mapModel.value(code).data()->add(increase);
         }
     }
 
-    Q_INVOKABLE CurveEntity* getCurveEntity(QString code) {
-        if (m_mapCurve.contains(code)) {
-            CurveEntity* data =  m_mapCurve.value(code).get();
-            return data;
-        }
-        return nullptr;
-    }
     Q_INVOKABLE MapTableModel* getCurveModel(QString code) {
         if (m_mapModel.contains(code)) {
             MapTableModel* data =  m_mapModel.value(code).get();
@@ -110,7 +91,6 @@ public:
     }
 
 private:
-    QMap<QString, QSharedPointer<CurveEntity>> m_mapCurve;
     QMap<QString,QSharedPointer<MapTableModel>> m_mapModel;
 
 

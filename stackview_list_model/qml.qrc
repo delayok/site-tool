@@ -4,5 +4,6 @@
         <file>addPage.qml</file>
         <file>listPage.qml</file>
         <file>RealTimeCurve.qml</file>
+        <file>iconwin.jpeg</file>
     </qresource>
 </RCC>

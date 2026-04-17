@@ -12,6 +12,7 @@
 #include <QJsonArray>
 #include "stockModel.h"
 #include "CurveManger.h"
+#include "setting.h"
 
 class StockManager : public QObject
 {
@@ -24,6 +25,7 @@ class StockManager : public QObject
 public:
 
     explicit StockManager(QObject *parent = nullptr);
+    ~StockManager();
 
     QList<QString> codelist(){
         return m_codelist;
@@ -60,15 +62,16 @@ public:
     }
     Q_INVOKABLE stockModel* getModel(){return  m_model;};
     Q_INVOKABLE MapTableModel* getXYtableModel(const QString &code){return m_curveMgr->getCurveModel(code);};
+    Q_INVOKABLE void save() {m_setting->saveCodels(m_codelist);}
 
     QString codeName(){return m_codeName;}
     void setcodeName(QString name ){
        m_codeName = name;
        QString url = QString("https://searchapi.eastmoney.com/api/suggest/get?input=%1&type=14&count=10").arg(m_codeName);
-       m_managerName.get(QNetworkRequest(QUrl(url)));
-    };
+       QString url2 = QString("https://smartbox.gtimg.cn/s3/?q=%1&t=all").arg(m_codeName);
 
-    Q_INVOKABLE CurveEntity* getCurveEntity(const QString &code){return m_curveMgr->getCurveEntity(code);}
+       m_managerName.get(QNetworkRequest(QUrl(url2)));
+    };
 
     Q_INVOKABLE void setViable(QString code){
         bool visable =false;
@@ -102,6 +105,7 @@ private:
     QString m_codeName;
     CurveManger *m_curveMgr;
     QMap<QString,bool> m_isvisable;
+    setting* m_setting;
 
 };
 

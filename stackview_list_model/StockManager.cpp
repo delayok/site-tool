@@ -14,6 +14,17 @@ StockManager::StockManager(QObject *parent) : QObject(parent)
     m_model = new stockModel(this);
     m_curveMgr = new CurveManger(this);
 
+    m_setting = new setting(this);
+    for (auto code : m_setting->getCode())
+    {
+        setcurcode(code);
+    }
+
+}
+
+StockManager::~StockManager()
+{
+    m_setting->saveCodels(m_codelist);
 }
 
 void StockManager::onRequestUrl()
@@ -102,6 +113,7 @@ void StockManager::onReplyFinishedName(QNetworkReply *reply)
     QByteArray data = reply->readAll();
     reply->deleteLater();
 
+#if 0// 东方
     // 假设返回格式：
     // { "price": 12.34 }
     QJsonDocument doc = QJsonDocument::fromJson(data);
@@ -122,6 +134,20 @@ void StockManager::onReplyFinishedName(QNetworkReply *reply)
 
     }
     setcurcode(defaultcode);
+#endif
+    // 1. 获取 GBK 编解码器
+    QTextCodec *codec = QTextCodec::codecForName("GBK");
+
+    // 2. 将原始字节转换为 QString
+    QString ret = codec->toUnicode(data);
+
+    QStringList ls = ret.split("~");
+    if (ls.count() < 2)
+        return;
+
+    QString ss = ls.at(1);
+    setcurcode(ss);
+
 }
 
 void StockManager::onStart()

@@ -9,23 +9,8 @@ Item {
     height: 50
 
     property alias lineColor: lineSeries.color
-    property CurveEntity source: null
     property MapTableModel tablemodel: null
 
-    onSourceChanged: {
-        //refreshChart()
-    }
-
-    function refreshChart() {
-        if (!source) return
-        var data = source.dataVec
-        if (data && data.length > 0) {
-            lineSeries.clear()
-            for (var i = 0; i < data.length; i++) {
-                lineSeries.append(i, data[i])
-            }
-        }
-    }
 
     ChartView {
         id: chartView
@@ -44,6 +29,7 @@ Item {
             name: "RealTime"
             color: "#00FFFF"
             width: 1.5
+            useOpenGL: true  // 启用 OpenGL
             axisX: ValueAxis {
                 id: xAxis
                 min: 0
