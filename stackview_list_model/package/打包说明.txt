@@ -1,0 +1,30 @@
+===============================================
+      stackview_list_model 打包说明
+===============================================
+
+【基本信息】
+- 项目名称: stackview_list_model
+- 编译配置: Qt 5.12.8 / mingw73_64 / Release
+- 打包日期: 2026-04-17
+
+【包含内容】
+- 主程序: stackview_list_model.exe
+- Qt5 核心库 (Core, Gui, Network, Qml, Quick, Charts, Widgets)
+- Qt5Charts.dll + QtCharts QML 模块
+- MinGW 运行库 (libgcc_s_seh, libstdc++, libwinpthread)
+- OpenGL/DirectX 组件
+- QML 组件和插件
+- 平台插件 (Windows)
+- 国际化翻译文件
+
+【使用方法】
+1. 直接复制整个 package 文件夹到目标电脑
+2. 无需安装 Qt 环境
+3. 运行 stackview_list_model.exe 即可启动程序
+
+【注意事项】
+- 需要 Windows 7/8/10/11 64位系统
+- 确保系统有必要的运行库（Visual C++ Redistributable）
+- 如遇闪退，可能是缺少运行库，安装 VC++ Redistributable 即可
+
+===============================================
