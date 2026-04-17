@@ -10,9 +10,10 @@ Item {
 
     property alias lineColor: lineSeries.color
     property CurveEntity source: null
+    property MapTableModel tablemodel: null
 
     onSourceChanged: {
-        refreshChart()
+        //refreshChart()
     }
 
     function refreshChart() {
@@ -51,8 +52,16 @@ Item {
             }
             axisY: ValueAxis {
                 id: yAxis
-                min: source ? source.minY : -10.0
-                max: source ? source.maxY : 10.0
+                min: -10.0
+                max: 10.0
+            }
+
+            VXYModelMapper {
+                id: vxymodel
+                series:lineSeries
+                model: tablemodel
+                xColumn: 0
+                yColumn: 1
             }
         }
     }

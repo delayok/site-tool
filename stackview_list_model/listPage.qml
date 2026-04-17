@@ -7,51 +7,62 @@ Item {
         id: listView
         anchors.fill: parent
         delegate: Item {
-            x: 5
-            width: parent.width
-            height: 160
-            Row {
-                id:row
+            // 移除 x: 5，改用左边距锚点更稳健
+            anchors.left: parent ? parent.left : undefined
+            anchors.leftMargin: 5
+            width: parent ? parent.width : 0
+            // 关键：高度绑定到 Column
+            height: containscolumn.height
 
-                Text {
-                    text: name
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.bold: true
-                    width: 60
-                }
-                Text {
-                    text: qsTr("价:")  + price
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.bold: true
-                    color: price > open ? "red" : "green";
-                     width: 60
-                }
-                Text {
-                    text: qsTr("幅:") + increase
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.bold: true
-                    color: increase > 0.0 ? "red" : "green";
-                     width: 60
-                }
-                Text {
-                    text: qsTr("均:") + mhmov
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.bold: true
-                     width: 60
-                }
-                spacing: 10
-            }
-
-            RealTimeCurve{
-                id: realTimeCurve
-                anchors.top: row.bottom
+            Column{
+                id :containscolumn
                 width: parent.width
-                height: parent.height - row.height
-                lineColor: increase > 0.0 ? "red" : "green"
-                source: stockManager.getCurveEntity(code)
-                visible: stockManager.getCodeVisable(code)
-            }
 
+                Row {
+                    id:row
+                    height: 30
+                    spacing: 10
+
+                    Text {
+                        text: name
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.bold: true
+                        width: 60
+                    }
+                    Text {
+                        text: qsTr("价:")  + price
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.bold: true
+                        color: price > open ? "red" : "green";
+                        width: 60
+                    }
+                    Text {
+                        text: qsTr("幅:") + increase
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.bold: true
+                        color: increase > 0.0 ? "red" : "green";
+                        width: 60
+                    }
+                    Text {
+                        text: qsTr("均:") + mhmov
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.bold: true
+                        width: 60
+                    }
+
+                }
+
+                RealTimeCurve{
+                    id: realTimeCurve
+                    width: parent.width
+                    height: 130
+                    lineColor: increase > 0.0 ? "red" : "green"
+                    source: stockManager.getCurveEntity(code)
+                    tablemodel: stockManager.getXYtableModel(code)
+                    visible: stockManager.getCodeVisable(code)
+                }
+
+            }
             MouseArea{
                 id: museitem
                 anchors.fill: parent

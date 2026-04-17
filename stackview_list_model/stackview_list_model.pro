@@ -17,10 +17,18 @@ SOURCES += \
         CurveManger.cpp \
         StockManager.cpp \
         main.cpp \
+        mapTableModel.cpp \
         stockModel.cpp
 
 RESOURCES += qml.qrc
-DESTDIR = $$PWD/build
+
+CONFIG(release, release|debug){
+    DESTDIR = $$PWD/build/release
+}else:{
+    DESTDIR = $$PWD/build/debug
+}
+
+OTHER_FILES  += $$PWD/build/*
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -36,4 +44,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     CurveManger.h \
     StockManager.h \
+    mapTableModel.h \
     stockModel.h

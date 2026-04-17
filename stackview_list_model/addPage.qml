@@ -32,7 +32,6 @@ Item {
                 mouseSelectionMode: TextInput.SelectCharacters
                 // 设置选择区域颜色
                 selectedTextColor: "white"
-                selectionColor: Material.accent
 
 
             }

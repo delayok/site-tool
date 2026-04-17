@@ -59,6 +59,7 @@ public:
         }
     }
     Q_INVOKABLE stockModel* getModel(){return  m_model;};
+    Q_INVOKABLE MapTableModel* getXYtableModel(const QString &code){return m_curveMgr->getCurveModel(code);};
 
     QString codeName(){return m_codeName;}
     void setcodeName(QString name ){
