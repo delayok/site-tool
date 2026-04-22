@@ -3,7 +3,7 @@
 StockManager::StockManager(QObject *parent) : QObject(parent)
 {
     m_timer = new QTimer(this);
-    m_timer->setInterval(1000);
+    m_timer->setInterval(900);
 
     connect(m_timer, &QTimer::timeout, this, &StockManager::onRequestUrl);
     connect(&m_mager, &QNetworkAccessManager::finished,this, &StockManager::onReplyFinished);
@@ -96,6 +96,7 @@ void StockManager::onReplyFinished(QNetworkReply *reply)
         jsonls.append(stockModel::JsonPkg{codeid,name,price,dma,open,in});
 
         m_curveMgr->addData(codeid,in);
+        emit updateRealY(codeid,in);
 
     }
     m_model->setDataList(jsonls);
@@ -154,3 +155,4 @@ void StockManager::onStart()
 {
     m_timer->start();
 }
+

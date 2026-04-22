@@ -61,11 +61,7 @@ public:
 
     } ;
 
-    void setDataList(const QList<JsonPkg> &list) {
-        beginResetModel();
-        m_data = list;
-        endResetModel();
-    }
+    void setDataList(const QList<JsonPkg> &list);
 
 
 signals:

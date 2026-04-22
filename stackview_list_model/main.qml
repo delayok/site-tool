@@ -1,40 +1,84 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
-import QtQuick .Controls 2.0
+import QtQuick.Controls 2.0
 import Qt.labs.platform 1.0
 
 ApplicationWindow  {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("10")
     id:window
 
 
-    StackView{
-        id :satckviewmain
-        anchors.fill: parent
-        initialItem: "addPage.qml"
+    property var satckviewmain: pageNavigator
 
+    Item {
+        id: pageHost
+        anchors.fill: parent
+
+        Loader {
+            id: addPageLoader
+            anchors.fill: parent
+            source: "addPage.qml"
+            visible: true
+            active: true
+        }
+
+        Loader {
+            id: listPageLoader
+            anchors.fill: parent
+            source: "listPage.qml"
+            visible: false
+            active: true
+        }
+    }
+
+    QtObject {
+        id: pageNavigator
+        function push(page) {
+            if (page === "listPage.qml") {
+                addPageLoader.visible = false
+                listPageLoader.visible = true
+            } else if (page === "addPage.qml") {
+                addPageLoader.visible = true
+                listPageLoader.visible = false
+            }
+        }
+
+        function pop() {
+            addPageLoader.visible = true
+            listPageLoader.visible = false
+        }
     }
 
     SystemTrayIcon{
         visible: true
         iconSource: "qrc:/iconwin.jpeg" // 必须指定一个有效的图标
-        tooltip: "我的 QML 应用"
+        tooltip: "gugugu"
 
         // 托盘菜单
         menu: Menu {
             id:trayMenu
             MenuItem {
                 text: "显示窗口"
-                onTriggered: window.show()
+                onTriggered: {
+                    window.show()
+                    console.log("666")
+                     trayMenu.close();
+                }
+
             }
             MenuItem {
                 text: "退出"
                 onTriggered:{
-                    stockManager.save();
-                    Qt.quit()
+                   console.log("9999")
+                   trayMenu.close();
+                   stockManager.save();
+                   window.requestActivate();
+                   Qt.quit()
+
+
                 }
             }
         }
@@ -42,7 +86,9 @@ ApplicationWindow  {
         onActivated: (reason) => {
                          if (reason === SystemTrayIcon.Context) {
                              // 右键
+
                              trayMenu.open()
+                              console.log("8888")
                          }
                      }
     }
@@ -50,6 +96,7 @@ ApplicationWindow  {
     onClosing: (close) =>{
         close.accepted = false
         window.hide();
+        console.log("xxxx");
     }
 
 

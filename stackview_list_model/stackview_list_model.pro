@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         CurveManger.cpp \
+        RealtimeCurveItem.cpp \
         StockManager.cpp \
         main.cpp \
         mapTableModel.cpp \
@@ -44,9 +45,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     CurveManger.h \
+    RealtimeCurveItem.h \
     StockManager.h \
     mapTableModel.h \
     setting.h \
     stockModel.h
 
-CONFIG +=console
+#CONFIG +=console

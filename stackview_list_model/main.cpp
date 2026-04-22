@@ -5,6 +5,7 @@
 #include <QIcon>
 #include <QStyle>
 #include "StockManager.h"
+#include "RealtimeCurveItem.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,6 +30,7 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     qmlRegisterType<MapTableModel>("myapp",1,0,"MapTableModel");
+    qmlRegisterType<RealtimeCurveItem>("myapp",1,0,"RealtimeCurveItem");
 
     StockManager *stockmgr = new StockManager();
     engine.rootContext()->setContextProperty("stockManager",stockmgr);

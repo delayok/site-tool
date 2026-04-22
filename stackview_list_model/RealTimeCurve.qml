@@ -15,7 +15,7 @@ Item {
     ChartView {
         id: chartView
         anchors.fill: parent
-        antialiasing: true
+        antialiasing:false
         backgroundColor: "transparent"
         legend.visible: false
         animationOptions: ChartView.NoAnimation
@@ -33,7 +33,7 @@ Item {
             axisX: ValueAxis {
                 id: xAxis
                 min: 0
-                max: 15000
+                max: 20000
                 visible: false
             }
             axisY: ValueAxis {

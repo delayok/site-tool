@@ -92,9 +92,11 @@ public slots:
     void onStart();
 
 
+
 signals:
     void curcodeChanged(QString code);
     void jsonUpdated(stockModel::JsonPkg da);
+    void updateRealY(QString code, qreal y);
 private:
     QList<QString> m_codelist;
     QString m_curcode;

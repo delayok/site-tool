@@ -24,7 +24,8 @@ public:
         return QVariant();
     }
 
-    void add(float value){  m_data.append(QPointF(m_data.count(), value));};
+    /// 追加一个采样点；超过上限会丢弃最旧数据，避免长时间运行内存与绘图开销线性增长。
+    void add(float value);
 
 signals:
 

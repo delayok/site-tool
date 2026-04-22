@@ -52,12 +52,19 @@ Item {
 
                 }
 
-                RealTimeCurve{
-                    id: realTimeCurve
+//                RealTimeCurve{
+//                    id: realTimeCurve
+//                    width: parent.width
+//                    height: 130
+//                    lineColor: increase > 0.0 ? "red" : "green"
+//                    tablemodel: stockManager.getXYtableModel(code)
+//                    visible: stockManager.getCodeVisable(code)
+//                }
+                RealtimeCurveSkeleton{
+                    id: realTimeCurveGCSnode
                     width: parent.width
                     height: 130
-                    lineColor: increase > 0.0 ? "red" : "green"
-                    tablemodel: stockManager.getXYtableModel(code)
+                    codeid: code
                     visible: stockManager.getCodeVisable(code)
                 }
 
@@ -70,7 +77,7 @@ Item {
                     if (mouse.button === Qt.RightButton)
                     {
                         contextMenu.code = code
-                        contextMenu.curve = realTimeCurve
+                        contextMenu.curve = realTimeCurveGCSnode //realTimeCurve,realTimeCurveGCSnode
                         contextMenu.popup();
                     }
                 }
