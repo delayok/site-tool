@@ -30,6 +30,8 @@ CONFIG(release, release|debug){
     DESTDIR = $$PWD/build/debug
 }
 
+RC_ICONS  = $$PWD/icon48.ico
+
 OTHER_FILES  += $$PWD/build/*
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
